@@ -10,7 +10,7 @@ public class EmployeeServis {
 
     private final Map<String, Employee> employees = new HashMap<>(10);
 
-    public void addWorker(String secondName, String firstname) {
+    public void addWorker(String secondName, String firstname,int salary,int deportament) {
         if (employees.size() >= 10) {
             throw new EmployeeStorageFullException();
         }
@@ -20,7 +20,7 @@ public class EmployeeServis {
         if (employee != null) {
             throw new EmployeeAlredyAddedException();
         }
-        employees.put(key(secondName, firstname), new Employee(secondName, firstname));
+        employees.put(key(secondName, firstname), new Employee(secondName, firstname,salary,deportament));
 
     }
 
@@ -34,18 +34,18 @@ public class EmployeeServis {
         }
     }
 
-    public String findWorker(String secondName, String firstname) {
+    public Employee findWorker(String secondName, String firstname) {
         if (find(secondName, firstname) == null) {
             throw new EmployeeNotFoundException();
-        } else {
-            return find(secondName, firstname);
         }
+            return findWorker(secondName,firstname);
+
 
     }
 
     public String find(String secondName, String firstname) {
         for (String iter : employees.keySet()) {
-            if (iter.equals(key(secondName, firstname))) {//getSecondName().equals(secondName)&&iter.getFirstName().equals(firstname)){
+            if (iter.equals(key(secondName, firstname))) {
                 return iter;
             }
         }
@@ -56,7 +56,12 @@ public class EmployeeServis {
         return employees;
     }
 
+
     public static String key(String secondName, String firstname) {
         return secondName + "," + firstname;
+    }
+
+    public Collection<Employee> list() {
+        return Collections.unmodifiableCollection(employees.values());
     }
 }

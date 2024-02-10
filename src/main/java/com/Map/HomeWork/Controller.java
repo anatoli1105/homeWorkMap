@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Map;
 
 @RestController
-//@RequestMapping(path ="/emloyee")
+@RequestMapping(path = "/emloyee")
 public class Controller {
 
 
@@ -20,13 +20,14 @@ public class Controller {
     }
 
     @GetMapping("/add")
-    public void addWorker(@RequestParam String secondName, @RequestParam String firstName) {
-        servis.addWorker(secondName, firstName);
+    public void addWorker(@RequestParam String secondName, @RequestParam String firstName,
+                          @RequestParam int salary, @RequestParam int deprtament) {
+        servis.addWorker(secondName, firstName, salary, deprtament);
 
     }
 
     @GetMapping(path = "/find")
-    public String findWorker(@RequestParam String secondName, @RequestParam String firstName) {
+    public Employee findWorker(@RequestParam String secondName, @RequestParam String firstName) {
 
         return servis.findWorker(secondName, firstName);
 
