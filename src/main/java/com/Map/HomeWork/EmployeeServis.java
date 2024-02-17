@@ -1,5 +1,6 @@
 package com.Map.HomeWork;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.parser.Entity;
@@ -44,7 +45,15 @@ public class EmployeeServis {
     }
 
     public String find(String secondName, String firstname) {
+
         for (String iter : employees.keySet()) {
+            if(StringUtils.isAlpha(secondName)||StringUtils.isAlpha(firstname)){
+                throw new NameException();
+            }
+            else {
+                StringUtils.upperCase(secondName);
+                StringUtils.upperCase(firstname);
+            }
             if (iter.equals(key(secondName, firstname))) {
                 return iter;
             }
